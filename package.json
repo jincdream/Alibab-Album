@@ -1,0 +1,20 @@
+{
+  "name": "alibab-album",
+  "version": "1.0.0",
+  "description": "alibaba-album",
+  "main": "scripts/getImageFile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node scripts/getImageFile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jincdream/Alibab-Album.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jincdream/Alibab-Album/issues"
+  },
+  "homepage": "https://github.com/jincdream/Alibab-Album#readme"
+}
