@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摄影集</title>
+    <style>
+        html,body{
+            padding: 0;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        #Background{
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            background-size: 100vw 100vh; 
+        }
+    </style>
+</head>
+<body class="body">
+    <div id="Background"></div>
+    <div id="Nav">
+        <div>2016</div>
+        <div>2017</div>
+        <div>2018</div>
+        <div>2019</div>
+        <div>2020</div>
+        <div>2021</div>
+        <div>2022</div>
+    </div>
+    
+    <script src="../scripts/file.js"></script>
+    <script src="./getRandomImage.js"></script>
+    <script>
+        var oFile = {}
+
+        // oNav.childNodes
+
+        files.root.forEach(f=>{
+            if(f && typeof f === "object"){
+                let name = Object.keys(f)[0]
+                let rz = {}
+                let imgs = f[name].filter((n,i) => {
+                    let isObj = typeof n === "object"
+                    if(isObj){
+                        rz = {...rz,...n}
+                    }
+                    return !isObj
+                })
+                rz.imgs = imgs
+                oFile[name] = rz
+            }
+        })
+        console.log(oFile)
+    </script>
+    <script>
+        window.Background.style  = `background: url(${'../'+getRandomImage(oFile)}) no-repeat center`
+    </script>
+</body>
+</html>
