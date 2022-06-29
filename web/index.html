@@ -12,34 +12,93 @@
             width: 100vw;
             height: 100vh;
             position: relative;
+            overflow: hidden;
         }
         #Background{
             width: 100vw;
             height: 100vh;
             position: absolute;
-            background-size: 100vw 100vh; 
+            background-position: center;
+            background-size: cover; 
+            background-repeat: no-repeat;
+            filter: blur(45px);
+        }
+        #Background:hover{
+            background-image: var(--bgUrl) !important;
+            filter: blur(0);
+            background-size: contain;
+        }
+        #Background:hover ~ #Content{
+            opacity: 0;
+        }
+        #Content{
+            border: 1px solid #fff;
+            display: flex;
+            flex-direction: column;
+            transition: all .2s;
+            width: 90vw;
+            height: 95vh;
+            margin: 5vh 5vw;
+            background-color: rgba(255, 255, 255, .9);
+            position: absolute;
+        }
+        #Nav{
+            display: flex;
+            border-bottom: 2px solid rgba(73, 73, 73, 1);
+            margin: 0;
+            background-color: rgba(28, 28, 28, 0.9);
+            color: aliceblue;
+            padding: 0;
+        }
+        #Nav > li{
+            flex: 1;
+            list-style: none;
+            text-align: center;
+            font-size: 32px;
+            cursor: pointer;
+            padding: 12px;
+        }
+        #Nav > li:hover{
+            background-color: #fff;
+            color: black;
+        }
+        #ImageBox{
+            flex: 1;
+            overflow-y: auto;
+        }
+        .img_wrap{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .one_img{
+            height: 300px;
+            width: 300px;
         }
     </style>
 </head>
 <body class="body">
     <div id="Background"></div>
-    <div id="Nav">
-        <div>2016</div>
-        <div>2017</div>
-        <div>2018</div>
-        <div>2019</div>
-        <div>2020</div>
-        <div>2021</div>
-        <div>2022</div>
+    <div id="Content">
+        <ul id="Nav">
+            <li>2016</li>
+            <li>2017</li>
+            <li>2018</li>
+            <li>2019</li>
+            <li>2020</li>
+            <li>2021</li>
+            <li>2022</li>
+        </ul>
+        <div id="ImageBox">
+
+        </div>
     </div>
-    
     <script src="../scripts/file.js"></script>
     <script src="./getRandomImage.js"></script>
+    <script src="./setImages.js"></script>
     <script>
         var oFile = {}
-
         // oNav.childNodes
-
         files.root.forEach(f=>{
             if(f && typeof f === "object"){
                 let name = Object.keys(f)[0]
@@ -55,10 +114,17 @@
                 oFile[name] = rz
             }
         })
-        console.log(oFile)
     </script>
     <script>
-        window.Background.style  = `background: url(${'../'+getRandomImage(oFile)}) no-repeat center`
+        let [year,img] = getRandomImage(oFile)
+        let bigImage = '../'+year + '/' + img
+        window.Background.style  = `background-image: url(${'../'+year + '/120/' + img})`
+        let imgEl = new Image
+        imgEl.src = bigImage
+        document.documentElement.style.setProperty('--bgUrl', `url(${bigImage})`);
+    </script>
+    <script>
+        setImages(oFile,location.hash.replace("#",""))
     </script>
 </body>
 </html>
