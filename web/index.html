@@ -32,14 +32,14 @@
             opacity: 0;
         }
         #Content{
-            border: 1px solid #fff;
+            border: 1px solid rgba(73, 73, 73, 1);
             display: flex;
             flex-direction: column;
             transition: all .2s;
             width: 90vw;
             height: 95vh;
             margin: 5vh 5vw;
-            background-color: rgba(255, 255, 255, .9);
+            background-color: rgba(28, 28, 28, 0.4);
             position: absolute;
         }
         #Nav{
@@ -65,15 +65,26 @@
         #ImageBox{
             flex: 1;
             overflow-y: auto;
+            padding-bottom: 24px;
         }
         .img_wrap{
             width: 100%;
             display: flex;
             flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
         }
         .one_img{
-            height: 300px;
-            width: 300px;
+            height: max-content;
+            width: max-content;
+            border: 8px solid seashell;
+            line-height: 0;
+            margin: 12px;
+            transition: all .2s;
+            cursor: pointer;
+        }
+        .one_img:hover{
+            transform: rotate(5deg);
         }
     </style>
 </head>
@@ -114,6 +125,13 @@
                 oFile[name] = rz
             }
         })
+        window.Nav.onclick = function(e){
+            console.log(e.srcElement.textContent)
+            if(e.srcElement.textContent){
+                location.hash = "#"+e.srcElement.textContent
+            }
+        }
+        
     </script>
     <script>
         let [year,img] = getRandomImage(oFile)
@@ -125,6 +143,9 @@
     </script>
     <script>
         setImages(oFile,location.hash.replace("#",""))
+        window.onhashchange = function(e){
+            setImages(oFile,location.hash.replace("#",""))
+        }
     </script>
 </body>
 </html>
